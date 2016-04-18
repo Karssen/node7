@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>index</title>
+</head>
+<body>
+  <form action="/users" method="post">
+    <h2>Create new user:</h2>
+    <p><input type="text" name="username" placeholder="username" /></p>
+    <p><input type="email" name="email" placeholder="email" /></p>
+    <p><input type="submit" name="button" value="submit" /></p>
+  </form>
+
+  <form class="delete-form">
+    <h2>Delete user:</h2>
+    <p><input type="text" name="id" placeholder="id" /></p>
+    <p><input type="submit" name="button" value="submit" /></p>
+  </form>
+
+  <script>
+    document
+      .querySelector(".delete-form")
+      .addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        var id = this.querySelector("input[type='text']").value;
+
+        fetch("/users/" + id, { method: "DELETE" })
+          .then(function(response) {
+            return response.text();
+          })
+          .then(function(text) {
+            alert(text);
+          })
+          .catch(function(err) {
+            alert("error " + err);
+          });
+    });
+
+  </script>
+</body>
+</html>
